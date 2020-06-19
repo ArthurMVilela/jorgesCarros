@@ -1,5 +1,6 @@
 package API;
 
+import Persistencia.Banco;
 import com.sun.net.httpserver.HttpServer;
 import java.net.InetSocketAddress;
 
@@ -9,6 +10,9 @@ import java.net.InetSocketAddress;
  */
 public class ServidorAPI {
     public static void main(String[] args){
+        
+        Banco.abrir();
+        
         try {
             //cria o servidor e atribui a ele a porta 8080 do localhost
             HttpServer servidor = HttpServer.create(new InetSocketAddress("localhost", 8080), 0);
