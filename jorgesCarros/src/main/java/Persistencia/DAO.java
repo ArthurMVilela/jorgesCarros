@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Persistencia;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -12,10 +8,10 @@ import java.util.List;
  * a persistencia dos dados das classes entidades
  */
 public interface DAO<Tipo> {
-    public Tipo buscar(Tipo t);
-    public List<Tipo> buscarMultiplos(String filtro);
-    public List<Tipo> buscarTodos();
-    public Tipo inserir(Tipo t);
-    public boolean excluir(Tipo t);
-    public Tipo atualizar(Tipo t);
+    public Tipo buscar(Tipo t) throws SQLException;
+    public List<Tipo> buscarMultiplos(String filtro) throws SQLException;
+    public List<Tipo> buscarTodos() throws SQLException;
+    public Tipo inserir(Tipo t) throws SQLException;
+    public boolean excluir(Tipo t) throws SQLException;
+    public Tipo atualizar(Tipo t) throws SQLException;
 }
