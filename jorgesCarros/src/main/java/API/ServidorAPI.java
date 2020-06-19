@@ -12,6 +12,8 @@ public class ServidorAPI {
         try {
             //cria o servidor e atribui a ele a porta 8080 do localhost
             HttpServer servidor = HttpServer.create(new InetSocketAddress("localhost", 8080), 0);
+            
+            servidor.createContext("/carros", new HandlerCarro());
                         
             //começa o servidor
             servidor.setExecutor(null); 
