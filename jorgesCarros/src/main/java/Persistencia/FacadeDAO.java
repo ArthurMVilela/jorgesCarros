@@ -10,5 +10,11 @@ package Persistencia;
  * @author arthur
  */
 public class FacadeDAO {
-    public DAOCarro carro = new DAOCarro();
+    private DAOCarro carro = new DAOCarro();
+
+    public DAOCarro getCarro() {
+        return carro;
+    }
+    
+    
 }
