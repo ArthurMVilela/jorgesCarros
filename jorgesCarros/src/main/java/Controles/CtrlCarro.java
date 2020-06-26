@@ -2,6 +2,12 @@ package Controles;
 
 import Carro.Carro;
 import Carro.StatusCarro;
+import Persistencia.FacadeDAO;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Classe controle para todas as operações envolvendo o 
@@ -9,6 +15,8 @@ import Carro.StatusCarro;
  * pacote Carro.
  */
 public class CtrlCarro {
+    
+    private FacadeDAO dao = new FacadeDAO();
     
     /**
      * Adiciona o carro ao banco de dados e retorna o veículo
@@ -18,7 +26,15 @@ public class CtrlCarro {
      * @return          carro cadastrado
      */
     public Carro adicionarCarro(Carro carro) {
-        return new Carro();
+        
+        Carro c;
+        try {
+            c = dao.getCarro().inserir(carro);
+        } catch (SQLException ex) {
+            c = null;
+        }
+        
+        return c;
     }
     
     /**
@@ -61,5 +77,31 @@ public class CtrlCarro {
      */   
     public Carro mudarStatus(int codigo, StatusCarro status){
         return new Carro();
+    }
+    
+    public Carro lerJSON(String json) {
+        ObjectMapper mapper = new ObjectMapper();
+        Carro c = new Carro();
+        try {
+            c = mapper.readValue(json, Carro.class);
+        } catch (IOException ex) {
+            
+            c = null;
+        }
+        
+        return c;
+    }
+    
+    public String transformarJSON(Carro c) {
+        ObjectMapper mapper = new ObjectMapper();
+        String json;
+        
+        try {
+            json = mapper.writeValueAsString(c);
+        } catch (Exception ex) {
+            json = "";
+        }
+        
+        return json;
     }
 }

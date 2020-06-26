@@ -3,16 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Persistencia;
+package Controles;
 
-/**
- *
- * @author arthur
- */
-public class FacadeDAO {
-    private final DAOCarro carro = new DAOCarro();
+public class FacadeCtrl {
+    private CtrlCarro carro;
 
-    public DAOCarro getCarro() {
+    public FacadeCtrl() {
+        this.carro = new CtrlCarro();
+    }
+
+    public CtrlCarro getCarro() {
         return carro;
     }
     

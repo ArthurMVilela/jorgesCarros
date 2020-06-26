@@ -1,52 +1,95 @@
 package API;
 
 import Carro.Carro;
-import Persistencia.FacadeDAO;
+import Controles.FacadeCtrl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Processa todas as requisições HTTP feitas para /carros
  */
 public class HandlerCarro implements HttpHandler {
     
-    private FacadeDAO dao = new FacadeDAO();
+    FacadeCtrl ctrl = new FacadeCtrl();
 
     @Override
     public void handle(HttpExchange he) throws IOException {
+        String path = he.getRequestURI().getPath();
+        String[] pathSegmentos = path.split("/");
+        
+        System.out.print(he.getRequestMethod());
+
         if (he.getRequestMethod().equals("GET")) {
-            Carro c = new Carro();
-            
-            c.setCodigo(1);
-            
-            String corpoResposta = "";
-            
-            try {
-                
-                 ObjectMapper mapper = new ObjectMapper();
-                 
-                Carro c2 = dao.getCarro().buscar(c);
-                corpoResposta = mapper.writeValueAsString(c2);
-                
-            } catch (SQLException ex) {
-                Logger.getLogger(HandlerCarro.class.getName()).log(Level.SEVERE, null, ex);
+            switch (pathSegmentos.length) {
+                case 2: { // /carros
+                    //listar todos os carros
+                    break;
+                }
+                case 3: { // /carros/{codigo}
+                    //um carro especifico
+                    break;
+                }
+                default: {
+                    //chamar resposta erro
+                    
+                }
             }
             
-            he.getResponseHeaders().set("Content-Type", "application/json");
-            he.sendResponseHeaders(200, corpoResposta.length());
-            OutputStream os = he.getResponseBody();
-            os.write(corpoResposta.getBytes());
-            os.close();
+        } else if (he.getRequestMethod().equals("POST")) {
+//            //cadastrar novo carro
+//            System.out.print("POST");
+//            InputStream is = he.getRequestBody();
+//            InputStreamReader reader = new InputStreamReader(is);
+//            BufferedReader readerComBuff = new BufferedReader(reader);
+//            StringBuffer sb = new StringBuffer();
+//            String s;
+//            String corpo = "";
+//
+//            if (is != null) {
+//                try {
+//                    while ((s = readerComBuff.readLine()) != null) {
+//                        sb.append(s);
+//                    }
+//                    corpo = sb.toString();
+//                } catch (Exception ex) {
+//                    corpo = "";
+//                }
+//            }
+//            ObjectMapper mapper = new ObjectMapper();
+//           
+//            Carro c = mapper.readValue(corpo, Carro.class);
+//            ctrl.getCarro().adicionarCarro(c);
+//            String corpoResposta = mapper.writeValueAsString(c);
+//            
+//            he.getResponseHeaders().set("Content-Type", "application/json");
+//            he.sendResponseHeaders(200, corpo.length());
+//            OutputStream os = he.getResponseBody();
+//            os.write(corpo.getBytes());
+//            os.close();
+//            
+        } else if (he.getRequestMethod().equals("DELETE")) {
+            //deletar carro especifico
+            if (pathSegmentos.length == 3) {
+                
+            } else {
+                //chamar mensagem de erro
+            }
+        } else if (he.getRequestMethod().equals("UPDATE")) {
+            //atualizar dados de carro especifico
+            if (pathSegmentos.length == 3) {
+                
+            } else {
+                //chamar mensagem de erro
+            }
         } else {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            //chamar resposta erro
         }
-        
     }
     
 }
