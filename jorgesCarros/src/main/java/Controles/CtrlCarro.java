@@ -31,8 +31,6 @@ public class CtrlCarro {
         try {
             c = dao.getCarro().inserir(carro);
         } catch (SQLException ex) {
-            System.out.print(ex);
-            System.exit(1);
             c = null;
         }
         
@@ -46,7 +44,16 @@ public class CtrlCarro {
      * @return          carro cadastrado no sistema
      */
     public Carro buscarCarro(int codigo) {
-        return new Carro();
+        Carro c = new Carro();
+        c.setCodigo(codigo);
+
+        try {
+            c = dao.getCarro().buscar(c);
+        } catch (SQLException ex) {
+            c = null;
+        }
+                
+        return c;
     }
     
     /**

@@ -42,6 +42,16 @@ public class HandlerCarro implements HttpHandler {
                 }
                 case 3: { // /carros/{codigo}
                     //um carro especifico
+                    
+                    //pegar codigo na URI
+                    int cod = Integer.valueOf(pathSegmentos[pathSegmentos.length-1]);
+                    
+                    Carro c = ctrl.getCarro().buscarCarro(cod);
+                    
+                    String corpoResposta = ctrl.getCarro().transformarJSON(c);
+                    
+                    //escreve a resposta
+                    Util.escreverResposta(he, corpoResposta);
                     break;
                 }
                 default: {
@@ -49,7 +59,7 @@ public class HandlerCarro implements HttpHandler {
                     
                 }
             }
-            ;
+            
         } else if (he.getRequestMethod().equals("POST")) {
             //cadastrar novo carro
             

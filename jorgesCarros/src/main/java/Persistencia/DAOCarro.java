@@ -1,9 +1,14 @@
 package Persistencia;
 
 import Carro.Carro;
+import Carro.Categoria;
+import Carro.CorCarro;
+import Carro.StatusCarro;
+import Carro.TipoMotor;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,7 +37,12 @@ public class DAOCarro implements DAO<Carro> {
             c.setCodigo(rs.getInt("codigo"));
             c.setPlaca(rs.getString("placa"));
             c.setRenavam(rs.getString("renavam"));
-            //enum
+                        
+            c.setStatus(StatusCarro.values()[rs.getInt("status")]);
+            c.setCategoria(Categoria.values()[rs.getInt("categoria")]);
+            c.setTipoMotor(TipoMotor.values()[rs.getInt("tipo_motor")]);
+            c.setCor(CorCarro.values()[rs.getInt("cor")]);
+            
             c.setModelo(rs.getString("modelo"));
             c.setAno(rs.getInt("ano"));
             c.setMarca(rs.getString("marca"));
@@ -56,7 +66,44 @@ public class DAOCarro implements DAO<Carro> {
 
     @Override
     public List<Carro> buscarTodos() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Carro> carros = new ArrayList();
+        Carro c;
+        
+        String sql = "SELECT * FROM carro";
+        PreparedStatement pst;
+        ResultSet rs;
+        
+        pst = Banco.getConexao().prepareStatement(sql);
+        
+        rs = pst.executeQuery();
+        
+        while(rs.next()) {
+            c = new Carro();
+            
+            c.setCodigo(rs.getInt("codigo"));
+            c.setPlaca(rs.getString("placa"));
+            c.setRenavam(rs.getString("renavam"));
+                        
+            c.setStatus(StatusCarro.values()[rs.getInt("status")]);
+            c.setCategoria(Categoria.values()[rs.getInt("categoria")]);
+            c.setTipoMotor(TipoMotor.values()[rs.getInt("tipo_motor")]);
+            c.setCor(CorCarro.values()[rs.getInt("cor")]);
+            
+            c.setModelo(rs.getString("modelo"));
+            c.setAno(rs.getInt("ano"));
+            c.setMarca(rs.getString("marca"));
+            c.setKmLitro(rs.getFloat("km_litro"));
+            c.setVolumeTanque(rs.getInt("volume_tanque"));
+            c.setArCondicionado(rs.getInt("ar_condicionado")==1);
+            c.setGps(rs.getInt("gps")==1);
+            c.setDirecaoAutomatica(rs.getInt("direcao_automatica")==1);
+            c.setRadioBluetooth(rs.getInt("radio_bluetooth")==1);
+            
+            carros.add(c);
+        }
+              
+        
+        return carros;
     }
 
     @Override
