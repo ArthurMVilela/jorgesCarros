@@ -9,9 +9,13 @@ package Carro;
  * Descreve o tipo de motor de um carro.
  */
 public enum TipoMotor {
-    Motor1_0,
-    Motor1_4,
-    Motor1_6,
-    Motor1_8,
-    Motor2_0
+    Motor1_0(0),Motor1_4(1),Motor1_6(2),Motor1_8(3),Motor2_0(4);
+    
+    private final int valor;
+    TipoMotor(int valor){
+        this.valor = valor;
+    }
+    public int getValor(){
+        return valor;
+    }
 }

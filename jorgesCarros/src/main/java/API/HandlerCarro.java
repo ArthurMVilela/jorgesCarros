@@ -2,7 +2,6 @@ package API;
 
 import Carro.Carro;
 import Controles.FacadeCtrl;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import java.io.BufferedReader;
@@ -24,11 +23,21 @@ public class HandlerCarro implements HttpHandler {
         String[] pathSegmentos = path.split("/");
         
         System.out.print(he.getRequestMethod());
+        
+       // Util.escreverRespostaErro(he, "Não implementado");
+        
 
         if (he.getRequestMethod().equals("GET")) {
             switch (pathSegmentos.length) {
                 case 2: { // /carros
                     //listar todos os carros
+                    String corpo = "{\"erro\":\"Não Implementado\"}";
+        
+                    he.getResponseHeaders().set("Content-Type", "application/json");
+                    he.sendResponseHeaders(200, corpo.length());
+                    OutputStream os = he.getResponseBody();
+                    os.write(corpo.getBytes());
+                    os.close();
                     break;
                 }
                 case 3: { // /carros/{codigo}
@@ -40,39 +49,20 @@ public class HandlerCarro implements HttpHandler {
                     
                 }
             }
-            
+            ;
         } else if (he.getRequestMethod().equals("POST")) {
-//            //cadastrar novo carro
-//            System.out.print("POST");
-//            InputStream is = he.getRequestBody();
-//            InputStreamReader reader = new InputStreamReader(is);
-//            BufferedReader readerComBuff = new BufferedReader(reader);
-//            StringBuffer sb = new StringBuffer();
-//            String s;
-//            String corpo = "";
-//
-//            if (is != null) {
-//                try {
-//                    while ((s = readerComBuff.readLine()) != null) {
-//                        sb.append(s);
-//                    }
-//                    corpo = sb.toString();
-//                } catch (Exception ex) {
-//                    corpo = "";
-//                }
-//            }
-//            ObjectMapper mapper = new ObjectMapper();
-//           
-//            Carro c = mapper.readValue(corpo, Carro.class);
-//            ctrl.getCarro().adicionarCarro(c);
-//            String corpoResposta = mapper.writeValueAsString(c);
-//            
-//            he.getResponseHeaders().set("Content-Type", "application/json");
-//            he.sendResponseHeaders(200, corpo.length());
-//            OutputStream os = he.getResponseBody();
-//            os.write(corpo.getBytes());
-//            os.close();
-//            
+            //cadastrar novo carro
+            
+            //le o corpo da requisição e transforma em uma string
+            String corpo = Util.lerCorpo(he.getRequestBody());
+            
+            //transforma o cropo em um objeto Carro
+            Carro c = ctrl.getCarro().lerJSON(corpo);
+            Carro registrado = ctrl.getCarro().adicionarCarro(c); //registra carro e retorna ele registrado
+            String corpoResposta = ctrl.getCarro().transformarJSON(registrado); //transforma o carro registrado em uma string
+            
+            //escreve a resposta
+            Util.escreverResposta(he, corpoResposta);
         } else if (he.getRequestMethod().equals("DELETE")) {
             //deletar carro especifico
             if (pathSegmentos.length == 3) {

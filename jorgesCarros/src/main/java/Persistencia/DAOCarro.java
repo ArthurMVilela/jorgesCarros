@@ -62,50 +62,68 @@ public class DAOCarro implements DAO<Carro> {
     @Override
     public Carro inserir(Carro t) throws SQLException {
         
-        String sql = "INSERT INTO carro (placa) VALUES (?)";
+        String sql = "INSERT INTO carro "
+                + "(placa,renavam,status,categoria,tipo_motor,cor,modelo,ano,marca,"
+                + "km_litro,volume_tanque,ar_condicionado,gps,direcao_automatica,"
+                + "radio_bluetooth)"
+                + " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        
+//        String sql = "INSERT INTO carro "
+//                + "(placa,renavam,status)"
+//                + " VALUES (?,?,?)";
         PreparedStatement pst;
+        ResultSet rs;
         
         pst = Banco.getConexao().prepareStatement(sql);
         
         pst.setString(1, t.getPlaca());
-//        pst.setString(2, t.getRenavam());
-//        pst.setString(3, t.getModelo());
-//        pst.setInt(4, t.getStatus().ordinal());
-//        pst.setInt(5, t.getCategoria().ordinal());
-//        pst.setInt(6, t.getTipoMotor().ordinal());
-//        pst.setInt(7, t.getCor().ordinal());
-//        pst.setString(8, t.getModelo());
-//        pst.setInt(9, t.getAno());
-//        pst.setString(10, t.getMarca());
-//        pst.setFloat(11, t.getKmLitro());
-//        pst.setInt(12, t.getVolumeTanque());
-//        if (t.isArCondicionado()){
-//            pst.setInt(13, 1);
-//        } else {
-//            pst.setInt(13, 0);
-//        }
-//        
-//        if (t.isGps()){
-//            pst.setInt(14, 1);
-//        } else {
-//            pst.setInt(14, 0);
-//        }
-//        
-//        if (t.isDirecaoAutomatica()){
-//            pst.setInt(15, 1);
-//        } else {
-//            pst.setInt(15, 0);
-//        }
-//        
-//        if (t.isRadioBluetooth()){
-//            pst.setInt(16, 1);
-//        } else {
-//            pst.setInt(16, 0);
-//        }
+        pst.setString(2, t.getRenavam());
+        pst.setInt(3, t.getStatus().getValor());
+        pst.setInt(4, t.getCategoria().getValor());
+        pst.setInt(5, t.getTipoMotor().getValor());
+        pst.setInt(6, t.getCor().getValor());
+        pst.setString(7, t.getModelo());
+        pst.setInt(8, t.getAno());
+        pst.setString(9, t.getMarca());
+        pst.setFloat(10, t.getKmLitro());
+        pst.setInt(11, t.getVolumeTanque());
+        if (t.isArCondicionado()){
+            pst.setInt(12, 1);
+        } else {
+            pst.setInt(12, 0);
+        }
+        
+        if (t.isGps()){
+            pst.setInt(13, 1);
+        } else {
+            pst.setInt(13, 0);
+        }
+        
+        if (t.isDirecaoAutomatica()){
+            pst.setInt(14, 1);
+        } else {
+            pst.setInt(14, 0);
+        }
+        
+        if (t.isRadioBluetooth()){
+            pst.setInt(15, 1);
+        } else {
+            pst.setInt(15, 0);
+        }
         
         pst.executeUpdate();
+        
+        pst = Banco.getConexao().prepareStatement("SELECT MAX(codigo) FROM carro");
+        rs = pst.executeQuery();
+        rs.next();
+        
+        Carro registrado = new Carro();
+        
+        registrado.setCodigo(rs.getInt("MAX(codigo)"));
+        
+        registrado = this.buscar(registrado);
        
-        return t;
+        return registrado;
         
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

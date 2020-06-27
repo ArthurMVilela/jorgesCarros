@@ -5,6 +5,8 @@ import com.sun.net.httpserver.HttpServer;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Está classes roda um servidor uma API REST que serve os
@@ -32,6 +34,11 @@ public class ServidorAPI {
             servidor.start();
         } catch (IOException ex) {
             System.out.println(ex);
+            try {
+                Banco.fechar();
+            } catch (SQLException ex1) {
+                System.out.println(ex);
+            }
         }
     }
 }

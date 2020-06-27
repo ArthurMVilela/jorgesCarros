@@ -31,6 +31,8 @@ public class CtrlCarro {
         try {
             c = dao.getCarro().inserir(carro);
         } catch (SQLException ex) {
+            System.out.print(ex);
+            System.exit(1);
             c = null;
         }
         

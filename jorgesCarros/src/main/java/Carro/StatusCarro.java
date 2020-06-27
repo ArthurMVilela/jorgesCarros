@@ -11,10 +11,13 @@ package Carro;
  * etc
  */
 public enum StatusCarro {
-    Disponivel,         //está disponivel para aluguel
-    EmManutencao,       //em manutenção   
-    EmServico,          //em serviço de terceiro
-    Reservado,          //reservado para aluguél
-    RemovidoDaGaragem,  //não mais em posse da empresa
-    Alugado             //alugado e em mão do cliente
+    Disponivel(0),EmManutencao(1),EmServico(2),Reservado(3),RemovidoDaGaragem(4),Alugado(5);            
+
+    private final int valor;
+    StatusCarro(int valor){
+        this.valor = valor;
+    }
+    public int getValor(){
+        return valor;
+    }
 }

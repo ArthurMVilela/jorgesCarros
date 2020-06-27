@@ -15,8 +15,8 @@ CREATE TABLE carro (
 	marca varchar(20),
 	km_litro float(2,2),
 	volume_tanque int,
-	ar_condicionado tinyint(1),
-	gps tinyint(1),
-	direcao_automatica tinyint(1),
-	radio_bluetooth tinyint(1)
+	ar_condicionado int(1),
+	gps int(1),
+	direcao_automatica int(1),
+	radio_bluetooth int(1)
 );
