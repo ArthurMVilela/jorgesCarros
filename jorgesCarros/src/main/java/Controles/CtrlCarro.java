@@ -6,8 +6,7 @@ import Persistencia.FacadeDAO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.List;
 
 /**
  * Classe controle para todas as operações envolvendo o 
@@ -57,6 +56,24 @@ public class CtrlCarro {
     }
     
     /**
+     * Busca todos carros no banco de dados.
+     * 
+     * @return          carros cadastrados no sistema
+     */
+    public List<Carro> buscarTodos() {
+        List<Carro> carros;
+
+        try {
+            carros = dao.getCarro().buscarTodos();
+        } catch (SQLException ex) {
+            carros = null;
+        }
+                
+        return carros;
+    }
+    
+    
+    /**
      * Altera os dados de um carro com um código especifico.
      * 
      * @param codigo    código do carro a ser alterado
@@ -102,6 +119,19 @@ public class CtrlCarro {
     }
     
     public String transformarJSON(Carro c) {
+        ObjectMapper mapper = new ObjectMapper();
+        String json;
+        
+        try {
+            json = mapper.writeValueAsString(c);
+        } catch (Exception ex) {
+            json = "";
+        }
+        
+        return json;
+    }
+    
+    public String transformarJSON(List<Carro> c) {
         ObjectMapper mapper = new ObjectMapper();
         String json;
         

@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.util.List;
 
 /**
  * Processa todas as requisições HTTP feitas para /carros
@@ -31,13 +32,13 @@ public class HandlerCarro implements HttpHandler {
             switch (pathSegmentos.length) {
                 case 2: { // /carros
                     //listar todos os carros
-                    String corpo = "{\"erro\":\"Não Implementado\"}";
-        
-                    he.getResponseHeaders().set("Content-Type", "application/json");
-                    he.sendResponseHeaders(200, corpo.length());
-                    OutputStream os = he.getResponseBody();
-                    os.write(corpo.getBytes());
-                    os.close();
+                    List<Carro> carros;
+                    
+                    carros = ctrl.getCarro().buscarTodos();
+                    
+                    String corpoResposta = ctrl.getCarro().transformarJSON(carros);
+                    
+                    Util.escreverResposta(he, 200, corpoResposta);
                     break;
                 }
                 case 3: { // /carros/{codigo}
@@ -51,7 +52,7 @@ public class HandlerCarro implements HttpHandler {
                     String corpoResposta = ctrl.getCarro().transformarJSON(c);
                     
                     //escreve a resposta
-                    Util.escreverResposta(he, corpoResposta);
+                    Util.escreverResposta(he, 200, corpoResposta);
                     break;
                 }
                 default: {
@@ -72,10 +73,13 @@ public class HandlerCarro implements HttpHandler {
             String corpoResposta = ctrl.getCarro().transformarJSON(registrado); //transforma o carro registrado em uma string
             
             //escreve a resposta
-            Util.escreverResposta(he, corpoResposta);
+            Util.escreverResposta(he, 201, corpoResposta);
         } else if (he.getRequestMethod().equals("DELETE")) {
             //deletar carro especifico
             if (pathSegmentos.length == 3) {
+                //pegar codigo na URI
+                int cod = Integer.valueOf(pathSegmentos[pathSegmentos.length-1]);
+                
                 
             } else {
                 //chamar mensagem de erro

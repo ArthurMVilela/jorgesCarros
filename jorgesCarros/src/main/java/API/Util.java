@@ -1,5 +1,6 @@
 package API;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.net.httpserver.HttpExchange;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,22 +9,33 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 
 public class Util {
-    public static void escreverResposta(HttpExchange he, String corpo) throws IOException {
+    public static void escreverResposta(HttpExchange he, int codigo, String corpo) throws IOException {
         he.getResponseHeaders().set("Content-Type", "application/json");
-        he.sendResponseHeaders(200, corpo.length());
+        he.sendResponseHeaders(codigo, corpo.length());
         OutputStream os = he.getResponseBody();
         os.write(corpo.getBytes());
         os.close();
     }
     
-    public static void escreverRespostaErro(HttpExchange he, String erro) throws IOException {
-        String corpo = "{\"erro\":\"" + erro + "\"}";
+    public static void escreverRespostaErro(HttpExchange he, int codigo, String erro) throws IOException {
+        RespostaErro res = new RespostaErro(erro);
         
-        he.getResponseHeaders().set("Content-Type", "application/json");
-        he.sendResponseHeaders(200, corpo.length());
-        OutputStream os = he.getResponseBody();
-        os.write(corpo.getBytes());
-        os.close();
+        ObjectMapper mapper = new ObjectMapper();
+        String json;
+        
+        try {
+            json = mapper.writeValueAsString(res);
+            
+            he.getResponseHeaders().set("Content-Type", "application/json");
+            he.sendResponseHeaders(codigo, json.length());
+            OutputStream os = he.getResponseBody();
+            os.write(json.getBytes());
+            os.close();
+        } catch (Exception ex) {
+            he.sendResponseHeaders(500, 0);
+            OutputStream os = he.getResponseBody();
+            os.close();
+        }
     }
     
     public static String lerCorpo(InputStream is) {
