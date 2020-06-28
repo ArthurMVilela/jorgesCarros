@@ -81,7 +81,17 @@ public class CtrlCarro {
      * @return          Carro com os dados alterados com successo
      */
     public Carro alterarCarro(int codigo, Carro carro) {
-        return new Carro();
+        Carro c;
+        
+        carro.setCodigo(codigo);
+        
+        try {
+            c = dao.getCarro().atualizar(carro);
+        } catch (SQLException ex) {
+            c = null;
+        }
+        
+        return c;
     }
     
     /**
@@ -91,7 +101,18 @@ public class CtrlCarro {
      * @return          se o veiculo foi excluir
      */    
     public boolean excluirCarro(int codigo) {
-        return false;
+        Carro c = new Carro();
+        boolean res;
+        
+        c.setCodigo(codigo);
+        
+        try {
+            res = dao.getCarro().excluir(c);
+        } catch (SQLException ex) {
+            res = false;
+        }
+        
+        return res;
     }
     
     /**

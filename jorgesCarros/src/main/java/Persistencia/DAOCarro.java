@@ -177,12 +177,69 @@ public class DAOCarro implements DAO<Carro> {
 
     @Override
     public boolean excluir(Carro t) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql = "DELETE FROM carro WHERE codigo = ?";
+        PreparedStatement pst;
+        
+        pst = Banco.getConexao().prepareStatement(sql);
+        pst.setInt(1, t.getCodigo());
+        
+        int res = pst.executeUpdate();
+        
+        return res!=0;
     }
 
     @Override
     public Carro atualizar(Carro t) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql = "UPDATE carro SET placa = ?, renavam = ?, status = ?, categoria = ?,"
+                + "tipo_motor = ?, cor = ?, modelo = ?, ano = ?, marca = ?, km_litro = ?,"
+                + "volume_tanque = ?, ar_condicionado = ?, gps = ?, direcao_automatica = ?,"
+                + "radio_bluetooth = ? WHERE codigo = ?";
+        PreparedStatement pst;
+        
+        pst = Banco.getConexao().prepareStatement(sql);
+        
+        pst.setInt(16, t.getCodigo());
+        
+        pst.setString(1, t.getPlaca());
+        pst.setString(2, t.getRenavam());
+        pst.setInt(3, t.getStatus().getValor());
+        pst.setInt(4, t.getCategoria().getValor());
+        pst.setInt(5, t.getTipoMotor().getValor());
+        pst.setInt(6, t.getCor().getValor());
+        pst.setString(7, t.getModelo());
+        pst.setInt(8, t.getAno());
+        pst.setString(9, t.getMarca());
+        pst.setFloat(10, t.getKmLitro());
+        pst.setInt(11, t.getVolumeTanque());
+        if (t.isArCondicionado()){
+            pst.setInt(12, 1);
+        } else {
+            pst.setInt(12, 0);
+        }
+        
+        if (t.isGps()){
+            pst.setInt(13, 1);
+        } else {
+            pst.setInt(13, 0);
+        }
+        
+        if (t.isDirecaoAutomatica()){
+            pst.setInt(14, 1);
+        } else {
+            pst.setInt(14, 0);
+        }
+        
+        if (t.isRadioBluetooth()){
+            pst.setInt(15, 1);
+        } else {
+            pst.setInt(15, 0);
+        }
+        
+        pst.executeUpdate();
+        
+        Carro alterado = this.buscar(t);
+       
+        return alterado;
     }
     
 }

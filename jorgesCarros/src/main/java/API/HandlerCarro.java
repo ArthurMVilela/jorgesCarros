@@ -45,7 +45,13 @@ public class HandlerCarro implements HttpHandler {
                     //um carro especifico
                     
                     //pegar codigo na URI
-                    int cod = Integer.valueOf(pathSegmentos[pathSegmentos.length-1]);
+                    int cod;
+                    try {
+                        cod = Integer.valueOf(pathSegmentos[pathSegmentos.length-1]);
+                    } catch (Exception ex) {
+                        Util.escreverRespostaErro(he, 400, "Requisição mal feita. Código Invalido");
+                        return;
+                    }
                     
                     Carro c = ctrl.getCarro().buscarCarro(cod);
                     
@@ -53,19 +59,26 @@ public class HandlerCarro implements HttpHandler {
                     
                     //escreve a resposta
                     Util.escreverResposta(he, 200, corpoResposta);
+                    
                     break;
                 }
                 default: {
                     //chamar resposta erro
-                    
+                    Util.escreverRespostaErro(he, 404, "Não encontrado.");
                 }
             }
             
+            return;            
         } else if (he.getRequestMethod().equals("POST")) {
             //cadastrar novo carro
             
             //le o corpo da requisição e transforma em uma string
             String corpo = Util.lerCorpo(he.getRequestBody());
+            
+            if (corpo == "") {
+                Util.escreverRespostaErro(he, 400, "Requisição mal feita. Falta corpo.");
+                return;
+            }
             
             //transforma o cropo em um objeto Carro
             Carro c = ctrl.getCarro().lerJSON(corpo);
@@ -74,25 +87,71 @@ public class HandlerCarro implements HttpHandler {
             
             //escreve a resposta
             Util.escreverResposta(he, 201, corpoResposta);
+            return;
         } else if (he.getRequestMethod().equals("DELETE")) {
             //deletar carro especifico
             if (pathSegmentos.length == 3) {
                 //pegar codigo na URI
-                int cod = Integer.valueOf(pathSegmentos[pathSegmentos.length-1]);
+                int cod;
+                try {
+                    cod = Integer.valueOf(pathSegmentos[pathSegmentos.length-1]);
+                } catch (Exception ex) {
+                    Util.escreverRespostaErro(he, 400, "Requisição mal feita. Código Invalido");
+                    return;
+                }
                 
+                boolean deletado = ctrl.getCarro().excluirCarro(cod);
+                
+                if (deletado) {
+                     Util.escreverResposta(he, 204, "");
+                } else {
+                    Util.escreverRespostaErro(he, 404, "Não encontrado.");
+                }
                 
             } else {
                 //chamar mensagem de erro
+                Util.escreverRespostaErro(he, 404, "Não encontrado.");
             }
-        } else if (he.getRequestMethod().equals("UPDATE")) {
+        } else if (he.getRequestMethod().equals("PATCH")) {
             //atualizar dados de carro especifico
             if (pathSegmentos.length == 3) {
+                //pegar codigo na URI
+                int cod;
+                try {
+                    cod = Integer.valueOf(pathSegmentos[pathSegmentos.length-1]);
+                } catch (Exception ex) {
+                    Util.escreverRespostaErro(he, 400, "Requisição mal feita. Código Invalido");
+                    return;
+                }
                 
+                //ler corpo
+                String corpo = Util.lerCorpo(he.getRequestBody());
+                if (corpo == "") {
+                    Util.escreverRespostaErro(he, 400, "Requisição mal feita. Falta corpo.");
+                    return;
+                }
+                
+                //transforma o cropo em um objeto Carro
+                Carro c = ctrl.getCarro().lerJSON(corpo);              
+                Carro alterado = ctrl.getCarro().alterarCarro(cod, c); //registra carro e retorna ele registrado
+                
+                
+                if (alterado == null) {
+                    Util.escreverRespostaErro(he, 400, "Requisição mal feita. Nenhum carro com este código.");
+                    return;
+                }
+                
+                String corpoResposta = ctrl.getCarro().transformarJSON(alterado); //transforma o carro registrado em uma string
+                
+                //escreve a resposta
+                Util.escreverResposta(he, 201, corpoResposta);
             } else {
-                //chamar mensagem de erro
+                //chamar resposta erro
+                    Util.escreverRespostaErro(he, 404, "Não encontrado.");
             }
         } else {
             //chamar resposta erro
+            Util.escreverRespostaErro(he, 404, "Não encontrado.");
         }
     }
     
