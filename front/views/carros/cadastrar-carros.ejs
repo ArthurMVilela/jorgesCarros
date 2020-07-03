@@ -1,0 +1,133 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Jorge's Carros</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    </head>
+    <body>
+        
+        <%- include("../menu") %>
+
+        <div class="container">
+            <div class="row pt-3">
+                <h1>Cadastro carros</h1>
+            </div>
+
+            <div class="row pt-3">
+                <div class="col card pt-3">
+                    <form>
+                        <h3>Carro selecionado: </h3>
+                        <div class="row">
+                            <div class="col-4">
+                                <label for="codigo">Código</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="codigo">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="button">Buscar</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <label for="placa">Placa</label>
+                                <input type="text" class="form-control" name="placa">
+                            </div>
+                            <div class="col-4">
+                                <label for="renavam">Renavam</label>
+                                <input type="text" class="form-control" name="renavam">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="modelo">Modelo</label>
+                                <input type="text" class="form-control" name="modelo">
+                            </div>
+                            <div class="col-3">
+                                <label for="marca">Marca</label> 
+                                <input type="text" class="form-control" name="marca">
+                            </div>
+                            <div class="col-3">
+                                <label for="ano">Ano</label>
+                                <input type="text" class="form-control" name="ano">
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <label for="motor">Motor</label>
+                                <input type="text" class="form-control" name="motor">
+                            </div>
+                            <div class="col-4">
+                                <label for="tanque">Tanque (volume)</label> 
+                                <input type="text" class="form-control" name="tanque">
+                            </div>
+                            <div class="col-4">
+                                <label for="km_litro">Km/Litro</label>
+                                <input type="text" class="form-control" name="km_litro">
+                            </div>
+
+                        </div>
+
+                        <br>
+
+                        <h4>Extras</h4>
+
+                        <table class="table">
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                                <label class="custom-control-label" for="customSwitch1">Ar condicionado</label>
+                            </div>
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="customSwitch2">
+                                <label class="custom-control-label" for="customSwitch2">Rádio Bluetooth</label>
+                            </div>
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="customSwitch3">
+                                <label class="custom-control-label" for="customSwitch3">GPS</label>
+                            </div>
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="customSwitch4">
+                                <label class="custom-control-label" for="customSwitch4">Direção Automática</label>
+                            </div>
+                        </table>
+
+                        <div class="row">
+                            <div class="col d-flex justify-content-end">
+
+                                <button class="btn btn-primary mx-1" type="submit" value="buscar">Buscar</button>
+                                <button class="btn btn-primary mx-1" type="submit" value="adicionar">Adicionar</button>
+                                <button class="btn btn-primary mx-1" type="submit" value="excluir">Excluir</button>
+                                <button class="btn btn-primary mx-1" type="submit" value="alterar">Alterar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="row p-3">
+                <h3>Carros</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Código</th>
+                            <th scope="col">Modelo</th>
+                            <th scope="col">Ano</th>
+                            <th scope="col">Diária</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        <tr>
+                            <th scope="row">00001</th>
+                            <td>Logan</td>
+                            <td>2015</td>
+                            <td>R$130,00</td>
+                            <td>Disponível</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+    </body>
+</html>
