@@ -1,5 +1,9 @@
 var express = require("express"); 
-const path = require('path');
+var path = require('path');
+var fetch = require('node-fetch');
+
+var porta = 3000;
+var urlAPI = "http://localhost:4000";
 
 var app = express();
 
@@ -12,8 +16,22 @@ app.get("/", function(req,res,next) {
 });
 
 app.get("/cadastrar-carro", function(req,res,next) {
-	res.render("carros/cadastrar-carros", {})
+	var carros;
+
+	fetch(urlAPI + "/carros")
+		.then(response => response.json())
+		.then(data => {
+			carros = data;
+			res.render("./carros/cadastrar-carro", {
+				listaCarros: carros
+			});
+		})
+		.catch(err => {
+			console.log(err)
+		});
+
+	
 })
 
 
-var server = app.listen(3000, function(){});
+var server = app.listen(porta, function(){});

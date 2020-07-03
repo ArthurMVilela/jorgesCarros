@@ -117,13 +117,16 @@
                     </thead>
                     
                     <tbody>
-                        <tr>
-                            <th scope="row">00001</th>
-                            <td>Logan</td>
-                            <td>2015</td>
-                            <td>R$130,00</td>
-                            <td>Disponível</td>
-                        </tr>
+                        <% listaCarros.forEach(function (carro) { %>
+                            <tr>
+                                <th scope="row"><%= carro.codigo %></th>
+                                <td><%= carro.modelo %></td>
+                                <td><%= carro.ano %></td>
+                                <td>R$130,00</td>
+                                <td><%= carro.status %></td>
+                            </tr>
+                        <% }) %>
+                        
                     </tbody>
                 </table>
             </div>
