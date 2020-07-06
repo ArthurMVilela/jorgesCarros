@@ -20,3 +20,15 @@ CREATE TABLE carro (
 	direcao_automatica int(1),
 	radio_bluetooth int(1)
 );
+CREATE TABLE entrada (
+	codigo int(6) auto_increment primary key,
+	motivo varchar(15),
+	horario TIMESTAMP
+	
+);
+CREATE TABLE saida (
+	codigo int(6) auto_increment primary key,
+	motivo varchar(15),
+	horario TIMESTAMP
+	
+);

@@ -7,14 +7,18 @@ package Controles;
 
 public class FacadeCtrl {
     private CtrlCarro carro;
-
+    private CtrlGaragen garagen;
     public FacadeCtrl() {
         this.carro = new CtrlCarro();
+        this.garagen = new CtrlGaragen();
     }
 
     public CtrlCarro getCarro() {
         return carro;
     }
     
+    public CtrlGaragen getGaragen() {
+        return garagen;
+    }
     
 }

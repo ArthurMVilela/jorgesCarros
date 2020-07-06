@@ -11,10 +11,17 @@ package Persistencia;
  */
 public class FacadeDAO {
     private final DAOCarro carro = new DAOCarro();
+    private final DAOEntrada daoe = new DAOEntrada();
+    private final DAOSaida daos = new DAOSaida();
 
     public DAOCarro getCarro() {
         return carro;
     }
-    
+    public DAOEntrada getEntrada(){
+        return daoe;
+    }
+    public DAOSaida getSaida(){
+        return daos;
+    }
     
 }

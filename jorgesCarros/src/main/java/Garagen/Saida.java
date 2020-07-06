@@ -1,12 +1,13 @@
 package Garagen;
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 import Carro.Carro;
 public class Saida {
     private String motivo;
-    private Date horarioS;
+    private LocalDateTime horarioS;
     private Carro carro;
-    private int hora;
+    private int  codigo;
+   
 
     public String getMotivo() {
         return motivo;
@@ -16,11 +17,11 @@ public class Saida {
         this.motivo = motivo;
     }
 
-    public Date getHorarioS() {
+    public LocalDateTime getHorarioS() {
         return horarioS;
     }
 
-    public void setHorarioS(Date horarioS) {
+    public void setHorarioS(LocalDateTime horarioS) {
         this.horarioS = horarioS;
     }
 
@@ -32,11 +33,14 @@ public class Saida {
         this.carro = carro;
     }
 
-    public int getHora() {
-        return hora;
+
+    public int getCodigo() {
+        return codigo;
     }
 
-    public void setHora(int hora) {
-        this.hora = hora;
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
+
+  
 }
