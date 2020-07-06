@@ -16,10 +16,16 @@
             </div>
 
             <div class="row pt-3">
-               <% if(mensagem && mensagem.tipo == "sucesso") { %>
-                    <div class="alert alert-success col" role="alert">
-                        <%= mensagem.texto %>
-                    </div>
+               <% if(mensagem) { %>
+                    <% if(mensagem.tipo == "sucesso") { %>
+                        <div class="alert alert-success col" role="alert">
+                            <%= mensagem.texto %>
+                        </div>
+                    <% } else if (mensagem.tipo == "sucesso") { %>
+                        <div class="alert alert-danger col" role="alert">
+                            <%= mensagem.texto %>
+                        </div>
+                    <% } %>
                <% } %>
             </div>
 
@@ -312,8 +318,8 @@
             }
             function alterar(){
                 
-                document.frm.setAttribute("method","PATCH")
-                document.frm.setAttribute("action","/atualizar-carro")
+                document.frm.setAttribute("method","POST")
+                document.frm.setAttribute("action","/atualizar-carro/" + frm.codigo.value)
             }
         </script>
     </body>

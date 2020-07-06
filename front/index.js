@@ -120,7 +120,70 @@ app.post("/excluir-carro/:id", function(req,res,next) {
 
 })
 
-app.patch("/atualizar-carro", function(req,res,next) {})
+app.post("/atualizar-carro/:id", function(req,res,next) {
+	var id = req.params.id;
+	var status;
+
+	var corpo = req.body;
+	var carro = {
+		codigo: parseInt(corpo.codigo),
+        placa: corpo.placa,
+        renavam: corpo.renavam,
+        status: parseInt(corpo.status),
+        categoria: parseInt(corpo.categoria),
+        tipoMotor: parseInt(corpo.motor),
+        cor: parseInt(corpo.cor),
+        modelo: corpo.modelo,
+        ano: parseInt(corpo.ano),
+        marca: corpo.marca,
+        kmLitro: parseFloat(corpo.km_litro),
+        volumeTanque: parseInt(corpo.tanque),
+        arCondicionado: corpo.ar_condicionado == "1",
+        gps: corpo.gps == "1",
+        direcaoAutomatica: corpo.direcao_automatica == "1",
+        radioBluetooth: corpo.radio_bluetooth == "1"
+	};
+
+	fetch(urlAPI + "/carros/" + carro.codigo, { method: 'PATCH',
+		mode: 'cors',
+		cache: 'default', 
+		body: JSON.stringify(carro)})
+		.then(response => {
+			console.log(response)
+      		status = response.status;
+
+      		response.json()
+      	}).then(data => {
+			
+			fetch(urlAPI + "/carros")
+				.then(response => response.json())
+				.then(data => {
+					carros = data;
+					if (status == 201) {
+						res.render("./carros/cadastrar-carro", {
+							listaCarros: carros,
+							mensagem: {
+								tipo: "sucesso",
+								texto: "Sucesso ao alterar carro."
+							}
+						});
+					} else {
+						res.render("./carros/cadastrar-carro", {
+							listaCarros: carros,
+							mensagem: {
+								tipo: "erro",
+								texto: "Erro ao tentar alterar carro."
+							}
+						});
+					}
+				})
+				.catch(err => {
+					console.log(err)
+				});
+			
+		})
+})
+
 
 
 var server = app.listen(porta, function(){});
