@@ -9,8 +9,18 @@
         <%- include("../menu") %>
 
         <div class="container">
+            
+
             <div class="row pt-3">
                 <h1>Cadastro carros</h1>
+            </div>
+
+            <div class="row pt-3">
+               <% if(mensagem && mensagem.tipo == "sucesso") { %>
+                    <div class="alert alert-success col" role="alert">
+                        <%= mensagem.texto %>
+                    </div>
+               <% } %>
             </div>
 
             <div class="row pt-3">
@@ -136,7 +146,7 @@
                         <div class="row">
                             <div class="col d-flex justify-content-end">
 
-                                <button class="btn btn-primary mx-1" type="submit" value="buscar" onclick="buscar()">Buscar</button>
+                                <button class="btn btn-primary mx-1" type="button" value="buscar" onclick="buscar()">Buscar</button>
                                 <button class="btn btn-primary mx-1" type="submit" value="adicionar" onclick="adicionar()">Adicionar</button>
                                 <button class="btn btn-primary mx-1" type="submit" value="excluir" onclick="excluir()">Excluir</button>
                                 <button class="btn btn-primary mx-1" type="submit" value="alterar" onclick="alterar()">Alterar</button>
@@ -178,22 +188,130 @@
 
         <script type="text/javascript">
             function buscar(){
-                console.log(document.frm)
-                document.frm.setAttribute("method","GET")
-                document.frm.setAttribute("action","/cadastrar-carro")
-            }
+                var codigo = frm.codigo.value
+                
+
+                fetch("http://localhost:4000/carros/" + codigo, {
+                        mode: "cors",
+                        headers: {
+                            Accept: 'application/json',
+                        },
+                    })
+                    .then((response) => response.json())
+                    .then(carro => {
+                        if (carro) {
+                            console.log(carro);
+                            frm.placa.value = carro.placa;
+                            frm.renavam.value = carro.renavam;
+                            frm.status.value = carro.status;
+                            switch(carro.status) {
+                                case "Disponivel":
+                                    frm.status.value = 0;
+                                    break;
+                                case "EmManutencao":
+                                    frm.status.value = 1;
+                                    break;
+                                case "EmServico":
+                                    frm.status.value = 2;
+                                    break;
+                                case "Reservado":
+                                    frm.status.value = 3;
+                                    break;
+                                case "RemovidoDaGaragem":
+                                    frm.status.value = 4;
+                                    break;
+                                case "Alugado":
+                                    frm.status.value = 5;
+                                    break;
+                            }
+                            switch(carro.categoria) {
+                                case "Utilitario":
+                                    frm.categoria.value = 0;
+                                    break;
+                                case "Sedan":
+                                    frm.categoria.value = 1;
+                                    break;
+                                case "QuatroPorQuatro":
+                                    frm.categoria.value = 2;
+                                    break;
+                            }
+                            switch(carro.tipoMotor) {
+                                case "Motor1_0":
+                                    frm.motor.value = 0;
+                                    break;
+                                case "Motor1_4":
+                                    frm.motor.value = 1;
+                                    break;
+                                case "Motor1_6":
+                                    frm.motor.value = 2;
+                                    break;
+                                case "Motor1_8":
+                                    frm.motor.value = 3;
+                                    break;
+                                case "Motor2_0":
+                                    frm.motor.value = 4;
+                                    break;
+                            }
+                            switch(carro.status) {
+                                case "Amarelo":
+                                    frm.status.value = 0;
+                                    break;
+                                case "Azul":
+                                    frm.status.value = 1;
+                                    break;
+                                case "Bege":
+                                    frm.status.value = 2;
+                                    break;
+                                case "Branco":
+                                    frm.status.value = 3;
+                                    break;
+                                case "Cinza":
+                                    frm.status.value = 4;
+                                    break;
+                                case "Laranja":
+                                    frm.status.value = 5;
+                                    break;
+                                case "Marrom":
+                                    frm.status.value = 6;
+                                    break;
+                                case "Preto":
+                                    frm.status.value = 7;
+                                    break;
+                                case "Verde":
+                                    frm.status.value = 8;
+                                    break;
+                                case "Vermelho":
+                                    frm.status.value = 9;
+                                    break;
+                            }
+                            frm.modelo.value = carro.modelo;
+                            frm.ano.value = carro.ano;
+                            frm.marca.value = carro.marca;
+                            frm.km_litro.value = carro.kmLitro;
+                            frm.tanque.value = carro.volumeTanque;
+                            frm.ar_condicionado.checked = carro.arCondicionado;
+                            frm.gps.checked = carro.gps
+                            frm.direcao_automatica.checked = carro.direcaoAutomatica;
+                            frm.radio_bluetooth.checked = carro.radio_bluetooth;
+                        }                        
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    });
+            };
+
             function adicionar(){
-                console.log(document.frm)
+               
                 document.frm.setAttribute("method","POST")
                 document.frm.setAttribute("action","/cadastrar-carro")
             }
             function excluir(){
-                console.log(document.frm)
+                
                 document.frm.setAttribute("method","DELETE")
                 document.frm.setAttribute("action","/excluir-carro")
             }
             function alterar(){
-                console.log(document.frm)
+                
                 document.frm.setAttribute("method","PATCH")
                 document.frm.setAttribute("action","/atualizar-carro")
             }

@@ -25,7 +25,8 @@ app.get("/cadastrar-carro", function(req,res,next) {
 		.then(data => {
 			carros = data;
 			res.render("./carros/cadastrar-carro", {
-				listaCarros: carros
+				listaCarros: carros,
+				mensagem: null
 			});
 		})
 		.catch(err => {
@@ -62,6 +63,21 @@ app.post("/cadastrar-carro", function(req,res,next) {
 		.then(data => {
 			console.log(data)
 			//printar a tela com o carro cadastrado
+			fetch(urlAPI + "/carros")
+				.then(response => response.json())
+				.then(data => {
+					carros = data;
+					res.render("./carros/cadastrar-carro", {
+						listaCarros: carros,
+						mensagem: {
+							tipo: "sucesso",
+							texto: "Sucesso ao cadastrar carro."
+						}
+					});
+				})
+				.catch(err => {
+					console.log(err)
+				});	
 		})
 		.catch(err => {
 			console.log(err)
