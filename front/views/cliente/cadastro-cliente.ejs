@@ -1,0 +1,112 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Jorge's Carros</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    </head>
+    <body>
+        
+        <%- include("../menu") %>
+
+        <div class="container">
+            <div class="row pt-3">
+                <h1>Cadastro de cliente</h1>
+            </div>
+            <div class="row pt-3">
+                <div class="col card pt-3">
+                    <form>
+                        <div class="form-group">
+
+                            <label for="nome">Nome</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="nome">
+                                
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <label for="rg">RG</label>
+                                    <input type="text" class="form-control" name="rg">
+                                </div>
+                                <div class="col">
+                                    <label for="cpf">CPF</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name="cpf">
+                                        
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary" type="button">Buscar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <label for="cnh">CNH</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="cnh">
+                            </div>
+
+                            <div class="row">
+                                <div class="col-4">
+                                    <label for="dataNascimento">Data de Nascimento</label>
+                                    <input type="text" class="form-control" name="dataNascimento" placeholder="__/__/____">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <h3>Endereço: </h3>
+
+                            <div class="row">
+                                <div class="col-4">
+                                    <label for="cep">CEP</label>
+                                    <input type="text" class="form-control" name="cep">
+                                </div>
+                                <div class="col-8">
+                                    <label for="bairro">Bairro</label>
+                                    <input type="text" class="form-control" name="bairro">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <label for="cidade">Cidade</label>
+                                    <input type="text" class="form-control" name="cidade">
+                                </div>
+                                <div class="col-6">
+                                    <label for="estado">Estado </label>
+                                    <!-- <input type="text" class="form-control" name="estado"> -->
+                                    <select class="custom-select" name="estado"></select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <label for="logradouro">Logradouro</label>
+                                    <input type="text" class="form-control" name="logradouro">
+                                </div>
+                                <div class="col-3">
+                                    <label for="numero">Número</label>
+                                    <input type="text" class="form-control" name="numero">
+                                </div>
+                                <div class="col-3">
+                                    <label for="Complemento">Complemento</label>
+                                    <input type="text" class="form-control" name="Complemento">
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col d-flex justify-content-end">
+                                <button class="btn btn-primary mx-1" type="submit" value="adicionar">Adicionar</button>
+                                <button class="btn btn-primary mx-1" type="submit" value="excluir">Excluir</button>
+                                <button class="btn btn-primary mx-1" type="submit" value="alterar">Alterar</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
