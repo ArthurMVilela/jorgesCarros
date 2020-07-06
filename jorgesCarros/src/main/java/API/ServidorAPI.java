@@ -14,7 +14,6 @@ import java.util.logging.Logger;
  */
 public class ServidorAPI {
     public static void main(String[] args){
-        System.out.print("AAAAAAAAAAAA");
         
         try {
             Banco.abrir();
@@ -27,7 +26,8 @@ public class ServidorAPI {
             HttpServer servidor = HttpServer.create(new InetSocketAddress("localhost", 4000), 0);
             
             servidor.createContext("/carros", new HandlerCarro());
-            System.out.print("AAAAAAAAAAAA");
+            
+            servidor.createContext("/cliente", new HandlerCliente());
             
             //começa o servidor
             servidor.setExecutor(null); 

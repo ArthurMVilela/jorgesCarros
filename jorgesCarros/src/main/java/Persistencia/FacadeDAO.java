@@ -11,10 +11,14 @@ package Persistencia;
  */
 public class FacadeDAO {
     private final DAOCarro carro = new DAOCarro();
+    private final ClienteDAO client = new ClienteDAO();
 
     public DAOCarro getCarro() {
         return carro;
     }
-    
-    
+
+    public ClienteDAO getCliente() {
+        // TODO Auto-generated method stub
+        return client;  
+    }
 }
