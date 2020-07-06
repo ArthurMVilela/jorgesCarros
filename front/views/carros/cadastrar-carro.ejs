@@ -307,8 +307,8 @@
             }
             function excluir(){
                 
-                document.frm.setAttribute("method","DELETE")
-                document.frm.setAttribute("action","/excluir-carro")
+                document.frm.setAttribute("method","POST")
+                document.frm.setAttribute("action","/excluir-carro/" + frm.codigo.value)
             }
             function alterar(){
                 

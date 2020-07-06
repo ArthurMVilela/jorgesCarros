@@ -84,7 +84,41 @@ app.post("/cadastrar-carro", function(req,res,next) {
 		});	
 });
 
-app.delete("/excluir-carro", function(req,res,next) {})
+app.post("/excluir-carro/:id", function(req,res,next) {
+	var id = req.params.id;
+	var status;
+
+	fetch(urlAPI + "/carros/" + id, { method: 'DELETE',
+            mode: 'cors',
+        	cache: 'default',
+      	}).then(response => {
+      		status = response.status;
+      		response.json()
+      	})
+		.then(data => {
+			if (status == 204) {
+				fetch(urlAPI + "/carros")
+					.then(response => response.json())
+					.then(data => {
+						carros = data;
+						res.render("./carros/cadastrar-carro", {
+							listaCarros: carros,
+							mensagem: {
+								tipo: "sucesso",
+								texto: "Sucesso ao excluir carro."
+							}
+						});
+					})
+					.catch(err => {
+						console.log(err)
+					});
+			}
+		})
+		.catch(err => {})
+
+	console.log(id);
+
+})
 
 app.patch("/atualizar-carro", function(req,res,next) {})
 
