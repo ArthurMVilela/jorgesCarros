@@ -184,6 +184,9 @@ app.post("/atualizar-carro/:id", function(req,res,next) {
 		})
 })
 
+app.get("/cadastro-cliente", function(req,res,next) {
+	res.render("./cliente/cadastro-cliente");
+})
 
 
 var server = app.listen(porta, function(){});
