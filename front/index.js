@@ -188,5 +188,9 @@ app.get("/cadastro-cliente", function(req,res,next) {
 	res.render("./cliente/cadastro-cliente");
 })
 
+app.get("/locar-carro", function(req,res,next) {
+	res.render("./locacao/locar-carro.ejs");
+})
+
 
 var server = app.listen(porta, function(){});
