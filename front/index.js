@@ -188,6 +188,30 @@ app.get("/cadastro-cliente", function(req,res,next) {
 	res.render("./cliente/cadastro-cliente");
 })
 
+app.post("/cadastrar-cliente", function(req,res,next) {
+	var corpo = req.body;
+	var cliente = {}; //criar objeto com dados do cliente pegando do formulario (corpo) semelhante ao cadastrar carro.
+
+	//fazer o request para cadastrar
+	fetch(urlAPI + "/carros", { method: 'POST',
+           mode: 'cors',
+           cache: 'default', 
+           body: JSON.stringify(cliente)})
+		.then((response) => {
+			status = response.status
+			return response.json();
+		})
+		.then((cliente) => {})
+		.catch((err) => {})
+})
+
+app.post("/excluir-cliente/:id", function(req,res,next) {
+	var id = req.params.id;
+})
+app.post("/alterar-cliente/:id", function(req,res,next) {
+	var id = req.params.id;
+})
+
 app.get("/locar-carro", function(req,res,next) {
 	res.render("./locacao/locar-carro.ejs");
 })
