@@ -7,7 +7,7 @@ public class Entrada {
     private String motivo;
     private LocalDateTime  horarioE;
    
-    private int  codigo;
+    private int codigo;
     
 
     public String getMotivo() {
@@ -26,14 +26,13 @@ public class Entrada {
         this.horarioE = horarioE;
     }
 
-    }
+           
     public int getCodigo() {
-        return codigo;
+    return codigo;
     }
 
     public void setCodigo(int codigo) {
-        this.codigo = codigo;
+    this.codigo = codigo;
     }
-
 
 }

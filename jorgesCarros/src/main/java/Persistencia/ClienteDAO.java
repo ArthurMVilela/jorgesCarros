@@ -8,6 +8,7 @@ import java.util.List;
 
 import Cliente.Cliente;
 import Cliente.Endereco;
+import java.sql.Statement;
 
 public class ClienteDAO implements DAO<Cliente> {
 
@@ -137,7 +138,7 @@ public class ClienteDAO implements DAO<Cliente> {
 		return cliente;
 	}
 
-	public void inserirEndereco(Endereco endereco) throws SQLException {
+	public int inserirEndereco(Endereco endereco) throws SQLException {
 
 		String sql = "INSERT INTO endereco "
 				+ " (codendereco, cep, cidade, estado, bairro, numero, complemento, logradouro)"
