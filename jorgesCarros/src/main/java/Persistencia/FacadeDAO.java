@@ -13,15 +13,23 @@ public class FacadeDAO {
     private final DAOCarro carro = new DAOCarro();
     private final DAOEntrada daoe = new DAOEntrada();
     private final DAOSaida daos = new DAOSaida();
+    private final ClienteDAO client = new ClienteDAO();
 
     public DAOCarro getCarro() {
         return carro;
     }
+  
     public DAOEntrada getEntrada(){
         return daoe;
     }
+  
     public DAOSaida getSaida(){
         return daos;
     }
-    
+
+    public ClienteDAO getCliente() {
+        // TODO Auto-generated method stub
+        return client;  
+    }
+
 }

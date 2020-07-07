@@ -8,8 +8,11 @@ package Controles;
 public class FacadeCtrl {
     private CtrlCarro carro;
     private CtrlGaragen garagen;
+    private CtrlCliente cliente;
+   
     public FacadeCtrl() {
         this.carro = new CtrlCarro();
+        this.cliente = new CtrlCliente();
         this.garagen = new CtrlGaragen();
     }
 
@@ -19,6 +22,10 @@ public class FacadeCtrl {
     
     public CtrlGaragen getGaragen() {
         return garagen;
+    }
+  
+    public CtrlCliente getCliente() {
+        return cliente;
     }
     
 }

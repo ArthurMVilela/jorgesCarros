@@ -1,0 +1,117 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Jorge's Carros</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    </head>
+    <body>
+        <%- include("../menu") %>
+        <div class="container">
+            <div class="row pt-3">
+                <h1>Locar carro</h1>
+            </div>
+
+            <div class="row pt-3">
+                <div class="col card pt-3">
+                    <form>
+                        <div class="form-group">
+                            <h3>Cliente</h3>
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <label for="cpf">CPF do cliente</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name="cpf">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary" type="button">Validar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <label for="cpf">CNH</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name="cpf">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary" type="button">Validar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <label for="nome">Nome</label>
+                            <input type="text" class="form-control" name="nome">
+                                
+                        </div>
+
+                        <div class="form-group">
+                            <h3>Carro</h3>
+                            
+
+                            <div class="row">
+                                <div class="col-4">
+                                    <label for="codigo">Código</label>
+                                    <input type="text" class="form-control" name="codigo" disabled>
+                                </div>
+                                <div class="col-4">
+                                    <label for="placa">Placa</label>
+                                    <input type="text" class="form-control" name="placa" disabled>
+                                </div>
+                                <div class="col-4">
+                                    <label for="renavam">Renavam</label>
+                                    <input type="text" class="form-control" name="renavam" disabled>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <label for="modelo">Modelo</label>
+                                    <input type="text" class="form-control" name="modelo" disabled>
+                                </div>
+                                <div class="col-3">
+                                    <label for="marca">Marca</label>
+                                    <input type="text" class="form-control" name="marca" disabled>
+                                </div>
+                                <div class="col-3">
+                                    <label for="ano">Ano</label>
+                                    <input type="text" class="form-control" name="ano" disabled>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col d-flex justify-content-end">
+                                    <button class="btn btn-primary m-1">Selecionar</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <h3>Locação</h3>
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <label for="retirada">Data retirada</label>
+                                    <input type="text" class="form-control" name="retirada" placeholder="__/__/____">
+                                </div>
+                                <div class="col-6">
+                                    <label for="devolucao">Data devolução</label>
+                                    <input type="text" class="form-control" name="devolucao" placeholder="__/__/____">
+                                </div>
+                            </div>
+                            <br>
+                            <div></div>
+                            
+                        </div>
+                        
+
+
+                        <div class="row">
+                            <div class="col d-flex justify-content-end">
+                                <button class="btn btn-primary mx-1" type="submit">Locar</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            
+        </div>
+    </body>
+</html>

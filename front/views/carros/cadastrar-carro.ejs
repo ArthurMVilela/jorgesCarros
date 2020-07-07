@@ -1,0 +1,326 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Jorge's Carros</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    </head>
+    <body>
+        
+        <%- include("../menu") %>
+
+        <div class="container">
+            
+
+            <div class="row pt-3">
+                <h1>Cadastro carros</h1>
+            </div>
+
+            <div class="row pt-3">
+               <% if(mensagem) { %>
+                    <% if(mensagem.tipo == "sucesso") { %>
+                        <div class="alert alert-success col" role="alert">
+                            <%= mensagem.texto %>
+                        </div>
+                    <% } else if (mensagem.tipo == "sucesso") { %>
+                        <div class="alert alert-danger col" role="alert">
+                            <%= mensagem.texto %>
+                        </div>
+                    <% } %>
+               <% } %>
+            </div>
+
+            <div class="row pt-3">
+                <div class="col card pt-3">
+                    <form name="frm">
+                        <h3>Carro selecionado: </h3>
+                        <div class="row">
+                            <div class="col-4">
+                                <label for="codigo">Código</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="codigo">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="button">Buscar</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <label for="placa">Placa</label>
+                                <input type="text" class="form-control" name="placa">
+                            </div>
+                            <div class="col-4">
+                                <label for="renavam">Renavam</label>
+                                <input type="text" class="form-control" name="renavam">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <label for="categoria">Categoria</label>
+                                <select class="custom-select" name="categoria">
+                                    <option value="0">Utilitário</option>
+                                    <option value="1">Sedan</option>
+                                    <option value="2">4 x 4</option>
+                                </select>
+                            </div>
+                            <div class="col-4">
+                                <label for="status">Status</label> 
+                                <select class="custom-select" name="status">
+                                    <option value="0">Disponivel</option>
+                                    <option value="1">Em manutenção</option>
+                                    <option value="2">Em servico</option>
+                                    <option value="3">Reservado</option>
+                                    <option value="4">Removido da garagem</option>
+                                    <option value="5">Alugado</option>
+                                </select>
+                            </div>
+                            <div class="col-4">
+                                <label for="cor">Cor</label>
+                                <select class="custom-select" name="cor">
+                                    <option value="0">Amarelo</option>
+                                    <option value="1">Azul</option>
+                                    <option value="2">Bege</option>
+                                    <option value="3">Branco</option>
+                                    <option value="4">Cinza</option>
+                                    <option value="5">Laranja</option>
+                                    <option value="6">Marrom</option>
+                                    <option value="7">Preto</option>
+                                    <option value="8">Verde</option>
+                                    <option value="9">Vermelho</option>
+                                </select>
+                            </div>
+
+                        </div>                        
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="modelo">Modelo</label>
+                                <input type="text" class="form-control" name="modelo">
+                            </div>
+                            <div class="col-3">
+                                <label for="marca">Marca</label> 
+                                <input type="text" class="form-control" name="marca">
+                            </div>
+                            <div class="col-3">
+                                <label for="ano">Ano</label>
+                                <input type="text" class="form-control" name="ano">
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <label for="motor">Motor</label>
+                                <select class="custom-select" name="motor">
+                                    <option value="0">Motor 1.0</option>
+                                    <option value="1">Motor 1.4</option>
+                                    <option value="2">Motor 1.6</option>
+                                    <option value="3">Motor 1.8</option>
+                                    <option value="4">Motor 2.0</option>
+                                </select>
+                            </div>
+                            <div class="col-4">
+                                <label for="tanque">Tanque (volume)</label> 
+                                <input type="text" class="form-control" name="tanque">
+                            </div>
+                            <div class="col-4">
+                                <label for="km_litro">Km/Litro</label>
+                                <input type="text" class="form-control" name="km_litro">
+                            </div>
+
+                        </div>
+
+                        <br>
+
+                        <h4>Extras</h4>
+
+                        <table class="table">
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="ar_condicionado" name="ar_condicionado" value="1">
+                                <label class="custom-control-label" for="ar_condicionado">Ar condicionado</label>
+                            </div>
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="radio_bluetooth" name="radio_bluetooth" value="1">
+                                <label class="custom-control-label" for="radio_bluetooth">Rádio Bluetooth</label>
+                            </div>
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="gps" name="gps" value="1">
+                                <label class="custom-control-label" for="gps">GPS</label>
+                            </div>
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="direcao_automatica" name="direcao_automatica" value="1">
+                                <label class="custom-control-label" for="direcao_automatica">Direção Automática</label>
+                            </div>
+                        </table>
+
+                        <div class="row">
+                            <div class="col d-flex justify-content-end">
+
+                                <button class="btn btn-primary mx-1" type="button" value="buscar" onclick="buscar()">Buscar</button>
+                                <button class="btn btn-primary mx-1" type="submit" value="adicionar" onclick="adicionar()">Adicionar</button>
+                                <button class="btn btn-primary mx-1" type="submit" value="excluir" onclick="excluir()">Excluir</button>
+                                <button class="btn btn-primary mx-1" type="submit" value="alterar" onclick="alterar()">Alterar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="row p-3">
+                <h3>Carros</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Código</th>
+                            <th scope="col">Modelo</th>
+                            <th scope="col">Ano</th>
+                            <th scope="col">Diária</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        <% listaCarros.forEach(function (carro) { %>
+                            <tr>
+                                <th scope="row"><%= carro.codigo %></th>
+                                <td><%= carro.modelo %></td>
+                                <td><%= carro.ano %></td>
+                                <td>R$130,00</td>
+                                <td><%= carro.status %></td>
+                            </tr>
+                        <% }) %>
+                        
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+
+        <script type="text/javascript">
+            function buscar(){
+                var codigo = frm.codigo.value
+                
+
+                fetch("http://localhost:4000/carros/" + codigo, {
+                        mode: "cors",
+                        headers: {
+                            Accept: 'application/json',
+                        },
+                    })
+                    .then((response) => response.json())
+                    .then(carro => {
+                        if (carro) {
+                            console.log(carro);
+                            frm.placa.value = carro.placa;
+                            frm.renavam.value = carro.renavam;
+                            frm.status.value = carro.status;
+                            switch(carro.status) {
+                                case "Disponivel":
+                                    frm.status.value = 0;
+                                    break;
+                                case "EmManutencao":
+                                    frm.status.value = 1;
+                                    break;
+                                case "EmServico":
+                                    frm.status.value = 2;
+                                    break;
+                                case "Reservado":
+                                    frm.status.value = 3;
+                                    break;
+                                case "RemovidoDaGaragem":
+                                    frm.status.value = 4;
+                                    break;
+                                case "Alugado":
+                                    frm.status.value = 5;
+                                    break;
+                            }
+                            switch(carro.categoria) {
+                                case "Utilitario":
+                                    frm.categoria.value = 0;
+                                    break;
+                                case "Sedan":
+                                    frm.categoria.value = 1;
+                                    break;
+                                case "QuatroPorQuatro":
+                                    frm.categoria.value = 2;
+                                    break;
+                            }
+                            switch(carro.tipoMotor) {
+                                case "Motor1_0":
+                                    frm.motor.value = 0;
+                                    break;
+                                case "Motor1_4":
+                                    frm.motor.value = 1;
+                                    break;
+                                case "Motor1_6":
+                                    frm.motor.value = 2;
+                                    break;
+                                case "Motor1_8":
+                                    frm.motor.value = 3;
+                                    break;
+                                case "Motor2_0":
+                                    frm.motor.value = 4;
+                                    break;
+                            }
+                            switch(carro.status) {
+                                case "Amarelo":
+                                    frm.status.value = 0;
+                                    break;
+                                case "Azul":
+                                    frm.status.value = 1;
+                                    break;
+                                case "Bege":
+                                    frm.status.value = 2;
+                                    break;
+                                case "Branco":
+                                    frm.status.value = 3;
+                                    break;
+                                case "Cinza":
+                                    frm.status.value = 4;
+                                    break;
+                                case "Laranja":
+                                    frm.status.value = 5;
+                                    break;
+                                case "Marrom":
+                                    frm.status.value = 6;
+                                    break;
+                                case "Preto":
+                                    frm.status.value = 7;
+                                    break;
+                                case "Verde":
+                                    frm.status.value = 8;
+                                    break;
+                                case "Vermelho":
+                                    frm.status.value = 9;
+                                    break;
+                            }
+                            frm.modelo.value = carro.modelo;
+                            frm.ano.value = carro.ano;
+                            frm.marca.value = carro.marca;
+                            frm.km_litro.value = carro.kmLitro;
+                            frm.tanque.value = carro.volumeTanque;
+                            frm.ar_condicionado.checked = carro.arCondicionado;
+                            frm.gps.checked = carro.gps
+                            frm.direcao_automatica.checked = carro.direcaoAutomatica;
+                            frm.radio_bluetooth.checked = carro.radio_bluetooth;
+                        }                        
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    });
+            };
+
+            function adicionar(){
+               
+                document.frm.setAttribute("method","POST")
+                document.frm.setAttribute("action","/cadastrar-carro")
+            }
+            function excluir(){
+                
+                document.frm.setAttribute("method","POST")
+                document.frm.setAttribute("action","/excluir-carro/" + frm.codigo.value)
+            }
+            function alterar(){
+                
+                document.frm.setAttribute("method","POST")
+                document.frm.setAttribute("action","/atualizar-carro/" + frm.codigo.value)
+            }
+        </script>
+    </body>
+</html>
