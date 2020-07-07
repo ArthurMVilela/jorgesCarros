@@ -14,7 +14,7 @@
             </div>
             <div class="row pt-3">
                 <div class="col card pt-3">
-                    <form>
+                    <form name="frm" method="POST">
                         <div class="form-group">
 
                             <label for="nome">Nome</label>
@@ -34,7 +34,7 @@
                                         <input type="text" class="form-control" name="cpf">
                                         
                                         <div class="input-group-append">
-                                            <button class="btn btn-outline-secondary" type="button">Buscar</button>
+                                            <button class="btn btn-outline-secondary" type="button" onclick="buscar()">Buscar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -75,7 +75,35 @@
                                 <div class="col-6">
                                     <label for="estado">Estado </label>
                                     <!-- <input type="text" class="form-control" name="estado"> -->
-                                    <select class="custom-select" name="estado"></select>
+                                    <select class="custom-select" name="estado">
+                                        <option value="AC">Acre</option>
+                                        <option value="AL">Alagoas</option>
+                                        <option value="AP">Amapá</option>
+                                        <option value="AM">Amazonas</option>
+                                        <option value="BH">Bahia</option>
+                                        <option value="CE">Ceará</option>
+                                        <option value="DF">Distrito Federal</option>
+                                        <option value="ES">Espirito Santo</option>
+                                        <option value="GO">Goiás</option>
+                                        <option value="MA">Maranhão</option>
+                                        <option value="MT">Mato Grosso</option>
+                                        <option value="MS">Mato Grosso do Sul</option>
+                                        <option value="MG">Minas Gerais</option>
+                                        <option value="PA">Pará</option>
+                                        <option value="PB">Paraíba</option>
+                                        <option value="PR">Paraná</option>
+                                        <option value="PE">Pernambuco</option>
+                                        <option value="PI">Piauí</option>
+                                        <option value="RJ">Rio de Janeiro</option>
+                                        <option value="RN">Rio Grande do Norte</option>
+                                        <option value="RS">Rio Grande do Sul</option>
+                                        <option value="RO">Rondônia</option>
+                                        <option value="RR">Roraima</option>
+                                        <option value="SC">Santa Catarina</option>
+                                        <option value="SP">São Paulo</option>
+                                        <option value="SE">Sergipe</option>
+                                        <option value="TO">Tocantins</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -98,9 +126,9 @@
 
                         <div class="row">
                             <div class="col d-flex justify-content-end">
-                                <button class="btn btn-primary mx-1" type="submit" value="adicionar">Adicionar</button>
-                                <button class="btn btn-primary mx-1" type="submit" value="excluir">Excluir</button>
-                                <button class="btn btn-primary mx-1" type="submit" value="alterar">Alterar</button>
+                                <button class="btn btn-primary mx-1" type="submit" value="adicionar" onclick="adicionar()">Adicionar</button>
+                                <button class="btn btn-primary mx-1" type="submit" value="excluir" onclick="excluir()">Excluir</button>
+                                <button class="btn btn-primary mx-1" type="submit" value="alterar" onclick="alterar()">Alterar</button>
                             </div>
                         </div>
 
@@ -108,5 +136,50 @@
                 </div>
             </div>
         </div>
+
+        <script type="text/javascript">
+            function buscar() {
+                var cpf = frm.cpf.value
+                fetch("http://localhost:4000/clientes/" + cpf, {
+                        mode: "cors",
+                        headers: {
+                            Accept: 'application/json',
+                        },
+                    })
+                    .then((response) => {
+                        return response.json();
+                    })
+                    .then((cliente) => {
+                        if (cliente) {
+                            console.log(cliente);
+                            frm.nome.value = cliente.nome;
+                            frm.rg.value = cliente.rg;
+                            frm.cnh.value = cliente.cnh;
+                            frm.dataNascimento.value = cliente.dataNascimento;
+
+                            frm.cep.value = cliente.endereco.cep;
+                            frm.bairro.value = cliente.endereco.bairro;
+                            frm.cidade.value = cliente.endereco.cidade;
+                        }
+                    })
+                    .catch((err)  => {
+                        console.log(err);
+                    })
+            }
+
+            function adicionar() {
+                document.frm.setAttribute("action","/cadastrar-cliente")
+
+            }
+
+            function excluir() {
+                document.frm.setAttribute("action","/excluir-cliente/" + frm.cpf.value)
+            }
+
+            function alterar() {
+                document.frm.setAttribute("action","/alterar-cliente/" + frm.cpf.value)
+            }
+        </script>
+
     </body>
 </html>
