@@ -23,7 +23,7 @@ CREATE TABLE carro (
 
 /*PACOTE CLIENTE*/
 create table endereco (
-	codendereco int primary key,
+	codendereco int auto_increment primary key,
 	cep varchar(7),
 	cidade varchar(20),
 	estado varchar(2),
