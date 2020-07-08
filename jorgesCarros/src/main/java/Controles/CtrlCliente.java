@@ -107,6 +107,9 @@ public class CtrlCliente {
 	public Cliente lerJSON(String json) {
 		ObjectMapper mapper = new ObjectMapper();
 		Cliente cliente = null;
+		
+		mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+		
 		try {
 			cliente = mapper.readValue(json, Cliente.class);
 		} catch (IOException ex) {
@@ -119,7 +122,9 @@ public class CtrlCliente {
 	public String transformarJSON(Cliente cliente) {
 		ObjectMapper mapper = new ObjectMapper();
 		String json;
-
+		
+		mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+	
 		try {
 			json = mapper.writeValueAsString(cliente);
 		} catch (Exception ex) {
@@ -133,6 +138,8 @@ public class CtrlCliente {
 	public String transformarJSON(List<Cliente> cliente) {
 		ObjectMapper mapper = new ObjectMapper();
 		String json;
+		
+		mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 
 		try {
 			json = mapper.writeValueAsString(cliente);
