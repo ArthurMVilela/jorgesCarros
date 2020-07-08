@@ -1,6 +1,6 @@
 package Cliente;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Cliente {
 	private String nome, cnh, cpf, rg;
