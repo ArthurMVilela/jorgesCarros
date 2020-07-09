@@ -3,6 +3,7 @@ package Persistencia;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -130,7 +131,8 @@ public class ClienteDAO implements DAO<Cliente> {
 		pst.setString(2, cliente.getNome());
 		pst.setString(3, cliente.getRg());
 		pst.setString(4, cliente.getCnh());
-		pst.setDate(5, cliente.getDataNascimento());
+		java.sql.Date dataNasc = new java.sql.Date(cliente.getDataNascimento().getTime());
+		pst.setDate(5, dataNasc);
 		pst.setInt(6, codEndereco); // codigo de identificacao do endereco 
 
 		pst.execute();
@@ -192,7 +194,8 @@ public class ClienteDAO implements DAO<Cliente> {
 		pst.setString(1, cliente.getNome());
 		pst.setString(2, cliente.getRg());
 		pst.setString(3, cliente.getCnh());
-		pst.setDate(4, cliente.getDataNascimento());
+		java.sql.Date dataNasc = new java.sql.Date(cliente.getDataNascimento().getTime());
+		pst.setDate(4, dataNasc);
 		pst.setInt(5, cliente.getEndereco().getCodEndereco());
 
 		pst.execute();
