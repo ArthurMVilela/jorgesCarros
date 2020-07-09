@@ -21,20 +21,6 @@ CREATE TABLE carro (
 	radio_bluetooth int(1)
 );
 
-CREATE TABLE entrada (
-	codigo int(6) auto_increment primary key,
-	motivo varchar(15),
-	horario TIMESTAMP
-	
-);
-
-CREATE TABLE saida (
-	codigo int(6) auto_increment primary key,
-	motivo varchar(15),
-	horario TIMESTAMP
-	
-);
-
 /*PACOTE CLIENTE*/
 create table endereco (
 	codendereco int auto_increment primary key,

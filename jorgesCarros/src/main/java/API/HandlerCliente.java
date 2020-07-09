@@ -18,6 +18,9 @@ public class HandlerCliente implements HttpHandler {
 
     @Override
     public void handle(HttpExchange he) throws IOException {
+    	
+    	try {
+    	
         String path = he.getRequestURI().getPath();
         String[] pathSegmentos = path.split("/");
         
@@ -86,7 +89,7 @@ public class HandlerCliente implements HttpHandler {
                 return;
             }
             
-            //transforma o cropo em um objeto Cliente
+            //transforma o corpo em um objeto Cliente
             Cliente cliente = ctrl.getCliente().lerJSON(corpo);
             Cliente registrado = ctrl.getCliente().adicionarCliente(cliente); //registra cliente e retorna ele registrado
             String corpoResposta = ctrl.getCliente().transformarJSON(registrado); //transforma o cliente registrado em uma string
@@ -158,6 +161,10 @@ public class HandlerCliente implements HttpHandler {
             //chamar resposta erro
             Util.escreverRespostaErro(he, 404, "Não encontrado.");
         }
+        
+    	}catch (Exception e) {
+    		e.printStackTrace();
+    	}
     }
     
 }

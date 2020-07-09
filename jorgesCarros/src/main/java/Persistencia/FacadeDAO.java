@@ -11,25 +11,26 @@ package Persistencia;
  */
 public class FacadeDAO {
     private final DAOCarro carro = new DAOCarro();
-    private final DAOEntrada daoe = new DAOEntrada();
-    private final DAOSaida daos = new DAOSaida();
     private final ClienteDAO client = new ClienteDAO();
+    private final DAOEntrada entrada = new DAOEntrada();
+    private final DAOSaida saida = new DAOSaida();
 
     public DAOCarro getCarro() {
         return carro;
     }
-  
-    public DAOEntrada getEntrada(){
-        return daoe;
-    }
-  
-    public DAOSaida getSaida(){
-        return daos;
-    }
 
     public ClienteDAO getCliente() {
-        // TODO Auto-generated method stub
-        return client;  
+            // TODO Auto-generated method stub
+            return client;  
     }
 
+    public DAOEntrada getEntrada() {
+        return entrada;
+    }
+
+    public DAOSaida getSaida() {
+        return saida;
+    }
+    
+    
 }

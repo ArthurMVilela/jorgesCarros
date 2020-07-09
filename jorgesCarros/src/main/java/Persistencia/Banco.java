@@ -13,16 +13,17 @@ public class Banco {
     private static java.sql.Connection conexao;
 
     static {
-        usuario = "root";
-        senha = "test";
+//        usuario = "root";
+//        senha = "test";
+    	usuario = "root";
+    	senha = "test";
         nomeBanco = "jorgescarros";
         servidorBanco = "localhost";
     
     }
     
     public static void abrir() throws SQLException {
-        
-        stringConnection = "jdbc:mysql://" + servidorBanco + ":3306" + "/" + nomeBanco;
+    	stringConnection = "jdbc:mysql://" + servidorBanco + ":3306" + "/" + nomeBanco;
         conexao = DriverManager.getConnection(stringConnection, usuario, senha); 
     }
     

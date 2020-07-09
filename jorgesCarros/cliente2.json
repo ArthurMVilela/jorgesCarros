@@ -1,0 +1,15 @@
+{
+	"cpf": "325",
+	"nome": "M",
+	"rg": "3",
+	"cnh": "9",
+	"dataNasc": null,
+	"endereco": {
+		"cep": "3",
+		"cidade": "sp",
+		"estado": "SP",
+		"bairro": "aa",
+		"numero": 3,
+		"logradouro": "rua b"
+	}
+}

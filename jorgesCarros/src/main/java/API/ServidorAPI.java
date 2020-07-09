@@ -5,6 +5,7 @@ import com.sun.net.httpserver.HttpServer;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.sql.SQLException;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -15,6 +16,9 @@ import java.util.logging.Logger;
 public class ServidorAPI {
     public static void main(String[] args){
         
+    	//Locale.setDefault(new Locale("pt", "BR"));
+    	//System.out.println(Locale.getDefault());
+    	
         try {
             Banco.abrir();
         } catch (SQLException ex) {
@@ -29,9 +33,12 @@ public class ServidorAPI {
             
             servidor.createContext("/cliente", new HandlerCliente());
             
+            
             //começa o servidor
             servidor.setExecutor(null); 
             servidor.start();
+            
+            System.out.print("Servidor pronto.");
         } catch (IOException ex) {
             System.out.println(ex);
             try {

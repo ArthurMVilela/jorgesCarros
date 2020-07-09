@@ -6,6 +6,10 @@ curl --header "Content-Type: application/json"   --request POST   --data '{"nome
 
 curl --header "Content-Type: application/json"   --request POST   --data '{"nome":"nome2","cnh":null,"cpf":"2","rg":null,"dataNascimento":null,"endereco":{"cep":null,"cidade":null,"bairro":null,"estado":null,"complemento":null,"logradouro":null,"numero":0,"codEndereco":2}}'   http://localhost:4000/cliente
 
+curl --header "Content-Type: application/json"   --request POST   --data '{"nome":"nome3","cnh":"3","cpf":"4","rg":"321","dataNascimento":"2020-07-07T00:00:00-03:00","endereco":{"cep":"123","cidade":"sbc","bairro":"jd A","estado":"SP","complemento":"naaa","logradouro":"rua a","numero":32}}'   http://localhost:4000/cliente
+
+curl --header "Content-Type: application/json"   --request POST   --data '{"nome":"nome3","cnh":"3","cpf":"5","rg":"321","dataNascimento":"1987-03-27T00:00:00-03:00","endereco":{"cep":"123","cidade":"sbc","bairro":"jd A","estado":"SP","complemento":"naaa","logradouro":"rua a","numero":32}}'   http://localhost:4000/cliente
+
 
 UPDATE de cliente:
 

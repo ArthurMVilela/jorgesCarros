@@ -190,26 +190,99 @@ app.get("/cadastro-cliente", function(req,res,next) {
 
 app.post("/cadastrar-cliente", function(req,res,next) {
 	var corpo = req.body;
-	var cliente = {}; //criar objeto com dados do cliente pegando do formulario (corpo) semelhante ao cadastrar carro.
+
+	var cliente = {
+		cpf: corpo.cpf,
+		nome: corpo.nome,
+		rg: corpo.rg,
+		cnh: corpo.cnh,
+		dataNascimento: Date.parse(corpo.dataNascimento),
+		endereco: {
+			cep: corpo.cep,
+			cidade: corpo.cidade,
+			estado: corpo.estado,
+			bairro: corpo.bairro,
+			numero: parseInt(corpo.numero),
+			complemento: corpo.complemento,
+			logradouro: corpo.logradouro
+		}
+	}; //criar objeto com dados do cliente pegando do formulario (corpo) semelhante ao cadastrar carro. - FEITO (MARINA -08/07)
 
 	//fazer o request para cadastrar
-	fetch(urlAPI + "/carros", { method: 'POST',
+	fetch(urlAPI + "/cliente", { method: 'POST',
            mode: 'cors',
            cache: 'default', 
            body: JSON.stringify(cliente)})
 		.then((response) => {
 			status = response.status
-			return response.json();
+			//return response.json();
+			if (status == 201) {
+				res.render("./cliente/cadastro-sucesso");
+			}
 		})
-		.then((cliente) => {})
-		.catch((err) => {})
+		//.then((cliente) => {})
+		.catch((err) => {
+			console.log(err);
+		})
 })
 
 app.post("/excluir-cliente/:id", function(req,res,next) {
 	var id = req.params.id;
+
+	fetch(urlAPI + "/cliente/" + id, { method: 'DELETE',
+           mode: 'cors',
+           cache: 'default'}) 
+           //body: JSON.stringify(cliente)})
+		.then((response) => {
+			status = response.status
+			//return response.json();
+			if (status == 200) {
+				res.render("./cliente/exclusao-sucesso");
+			}
+		})
+		//.then((cliente) => {})
+		.catch((err) => {
+			console.log(err);
+		})
 })
 app.post("/alterar-cliente/:id", function(req,res,next) {
 	var id = req.params.id;
+
+	var corpo = req.body;
+
+	var cliente = {
+		cpf: corpo.cpf,
+		nome: corpo.nome,
+		rg: corpo.rg,
+		cnh: corpo.cnh,
+		dataNascimento: Date.parse(corpo.dataNascimento),
+		endereco: {
+			codEndereco: corpo.codEndereco,
+			cep: corpo.cep,
+			cidade: corpo.cidade,
+			estado: corpo.estado,
+			bairro: corpo.bairro,
+			numero: parseInt(corpo.numero),
+			complemento: corpo.complemento,
+			logradouro: corpo.logradouro
+		}
+	};
+
+	fetch(urlAPI + "/cliente", { method: 'UPDATE',
+           mode: 'cors',
+           cache: 'default', 
+           body: JSON.stringify(cliente)})
+		.then((response) => {
+			status = response.status
+			//return response.json();
+			if (status == 201) {
+				res.render("./cliente/alteracao-sucesso");
+			}
+		})
+		//.then((cliente) => {})
+		.catch((err) => {
+			console.log(err);
+		})
 })
 
 app.get("/locar-carro", function(req,res,next) {

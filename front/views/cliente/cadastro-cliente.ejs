@@ -55,6 +55,8 @@
 
                         <div class="form-group">
                             <h3>Endereço: </h3>
+                            
+                            <input type="hidden" name="codEndereco">
 
                             <div class="row">
                                 <div class="col-4">
@@ -127,8 +129,9 @@
                         <div class="row">
                             <div class="col d-flex justify-content-end">
                                 <button class="btn btn-primary mx-1" type="submit" value="adicionar" onclick="adicionar()">Adicionar</button>
-                                <button class="btn btn-primary mx-1" type="submit" value="excluir" onclick="excluir()">Excluir</button>
                                 <button class="btn btn-primary mx-1" type="submit" value="alterar" onclick="alterar()">Alterar</button>
+                                <button class="btn btn-primary mx-1" type="submit" value="excluir" onclick="excluir()">Excluir</button>
+                                <!-- <button class="btn btn-primary mx-1" type="submit" value="buscar_todos" onclick="buscar_todos()">Listar clientes</button> -->
                             </div>
                         </div>
 
@@ -140,7 +143,7 @@
         <script type="text/javascript">
             function buscar() {
                 var cpf = frm.cpf.value
-                fetch("http://localhost:4000/clientes/" + cpf, {
+                fetch("http://localhost:4000/cliente/" + cpf, {
                         mode: "cors",
                         headers: {
                             Accept: 'application/json',
@@ -160,6 +163,8 @@
                             frm.cep.value = cliente.endereco.cep;
                             frm.bairro.value = cliente.endereco.bairro;
                             frm.cidade.value = cliente.endereco.cidade;
+
+                            frm.codEndereco.value = cliente.endereco.codEndereco;
                         }
                     })
                     .catch((err)  => {
@@ -179,6 +184,10 @@
             function alterar() {
                 document.frm.setAttribute("action","/alterar-cliente/" + frm.cpf.value)
             }
+
+            // function buscar_todos(){
+            //     document.frm.setAttribute("action","/buscar-todos-clientes/")
+            // }
         </script>
 
     </body>

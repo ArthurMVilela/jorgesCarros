@@ -12,7 +12,7 @@ public class Util {
     public static void escreverResposta(HttpExchange he, int codigo, String corpo) throws IOException {
         he.getResponseHeaders().set("Content-Type", "application/json");
         he.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
-        he.sendResponseHeaders(codigo, corpo.length());
+        he.sendResponseHeaders(codigo, corpo.getBytes().length);
         OutputStream os = he.getResponseBody();
         os.write(corpo.getBytes());
         os.close();
@@ -28,7 +28,6 @@ public class Util {
             json = mapper.writeValueAsString(res);
             
             he.getResponseHeaders().set("Content-Type", "application/json");
-            he.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
             he.sendResponseHeaders(codigo, json.length());
             OutputStream os = he.getResponseBody();
             os.write(json.getBytes());
